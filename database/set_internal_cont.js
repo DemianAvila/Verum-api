@@ -5,7 +5,7 @@ db.representantes.insert({
     nombre: "Luis Wenceslao De Ignacio Hernández",
     ciudad: "Ecatepec, Estado de México",
     activo: true,
-    permisos_administrador: true,
+    user_type: 1,
     fecha_modificacion: null,
     contrasenia: null,
     sha_code:null
