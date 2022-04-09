@@ -17,4 +17,4 @@ docker cp \
 
 #EJECUTA PIP PARA INSTALAR LOS REQUERIMIENTOS
 docker exec -it verum-db \
- pip install -r /app/src/requirements.txt
+ pip install -r requirements.txt
