@@ -9,7 +9,7 @@ db.representantes.insert({
     ciudad: "Ecatepec, Estado de México",
     activo: true,
     user_type: 1,
-    fecha_modificacion: null,
+    fecha_modificacion: Date(),
     contrasenia: null,
     sha_code:null
 });
