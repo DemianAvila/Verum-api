@@ -23,4 +23,4 @@ docker cp\
 
 #EJECUTA EL ARCHIVO DE INICIALIZACION
 docker exec -it verum-db \
-mongo --host localhost -u ${MONGO_USER} -p ${qyjyIWEsxhm2J3pPeu2pZaybqhPC4rbEEI7Zm5ryyJw=} set_internal_cont.js 
+mongo --host localhost -u ${MONGO_USER} -p ${MONGO_PASS} set_internal_cont.js 
