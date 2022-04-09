@@ -12,9 +12,9 @@ docker run \
 
 #COPIA TODO EL SCRIPT DEL PROYECTO HACIA EL WORKDIRECTORY
 docker cp \
- "./controlador_flask" \
+ "./controlador_flask/src" \
  ${PYTHON_NAME}:${WORKDIR}
 
 #EJECUTA PIP PARA INSTALAR LOS REQUERIMIENTOS
 docker exec -it verum-db \
- pip install -r /app/controlador_flask/requirements.txt
+ pip install -r /app/src/requirements.txt

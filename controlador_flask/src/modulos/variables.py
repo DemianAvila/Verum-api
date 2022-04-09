@@ -15,5 +15,6 @@ def var(ruta):
     variables["PORT_SERV"] = os.getenv("PORT_SERV")
     variables["INTERNAL_STORAGE"] = os.getenv("INTERNAL_STORAGE")
     variables["EXTERNAL_STORAGE"] = os.getenv("EXTERNAL_STORAGE")
+    variables["PUBLIC_DNS"] = os.getenv("PUBLIC_DNS")
     return variables
 

@@ -1,6 +1,5 @@
 #-----------------------------------------------
 #IMPORTACION MODULOS
-from crypt import methods
 from flask import Flask
 from flask_pymongo import PyMongo
 from modulos import *
@@ -12,7 +11,7 @@ vari = var("../../database/.env")
 #-----------------------------------------------
 #APP FLASK
 app = Flask(__name__)
-app.config["MONGO_URI"] = f"mongodb://localhost:{ vari['PORT_SERV'] }/{vari['DATABASE']}"
+app.config["MONGO_URI"] = f"mongodb://{vari['PUBLIC_DNS']}:{ vari['PORT_SERV'] }/{vari['DATABASE']}"
 
 mongo = PyMongo(app)
 
