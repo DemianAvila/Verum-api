@@ -12,7 +12,7 @@ docker run \
 
 #COPIA TODO EL SCRIPT DEL PROYECTO HACIA EL WORKDIRECTORY
 docker cp \
- "./controlador_flask/src" \
+ "./src" \
  ${PYTHON_NAME}:${WORKDIR}
 
 #EJECUTA PIP PARA INSTALAR LOS REQUERIMIENTOS
