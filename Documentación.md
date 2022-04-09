@@ -43,7 +43,7 @@ Dicho parametro se extrae de la URL, se para como argumento para la api y regres
 
 ---
 ```
-./post_representante_by_id/
+./post_representante/
 ?nombre:<Nombre del usuario>&
 seg_nombre:<Segundo nombre del usuario>&
 a_paterno:<Apellido paterno del usuario>&
