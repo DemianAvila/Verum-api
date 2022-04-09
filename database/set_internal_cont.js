@@ -2,7 +2,10 @@
 db = db.getSiblingDB("verum_administracion");
 //INSERTA UN DATO PARA HACER EXISTIR ESA BASE DE DATOS
 db.representantes.insert({
-    nombre: "Luis Wenceslao De Ignacio Hernández",
+    nombre: "Luis",
+    seg_nombre: "Wenceslao",
+    a_paterno: "De Ignacio",
+    a_materno: "Hernández",
     ciudad: "Ecatepec, Estado de México",
     activo: true,
     user_type: 1,

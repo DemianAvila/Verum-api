@@ -28,12 +28,178 @@ Cada uno de los tres componentes (base de datos, API e interfaz gráfica) serán
 Se trata de un contenedor de docker que emplea MongoDB como motor de base de datos; en el proceso de construcción se copia adentro del contenedor un archivo JavaScript que define la base de datos y agrega una colección de preprsentantes, agregando por default al director de Verum como único administrador
 
 ### API (Application programming interface) 
-Se trata de un intermediario entre la interfaz visual y la base de datos; define rutas especificas para la consulta, inserción y actualización de datos.
+Se trata de un intermediario entre la interfaz visual y la base de datos; define rutas especificas para la consulta, inserción y actualización de datos.Se elige el framework de Flask para alimentarla.
+
 #### Rutas - Endpoints
-- ./get_representante_by_id/<id_del_representante>
+```
+./get_usuario_by_id/<id_del_representante>
+```
 
 IMPORTANTE, NECESARIA PARA LA IDENTIFICACIÓN POR QR
 La redirección QR esta pensada para mandar a una pagina con el siguiente formato
-##### verum.com/?representante=<id_del_representante>
+##### verum.com/?usuario=<id_del_usuario>
 
 Dicho parametro se extrae de la URL, se para como argumento para la api y regresa todos los datos del representante
+
+---
+```
+./post_representante_by_id/
+?nombre:<Nombre del usuario>&
+seg_nombre:<Segundo nombre del usuario>&
+a_paterno:<Apellido paterno del usuario>&
+a_materno:<Apellido materno del usuario>&
+ciudad:<Localización geografica del usuario>&
+user_type:<privilegios del usuario>&
+contrasenia:<contraseña del usuario>
+```
+
+
+Parametro de la API para dar de alta usuarios. 
+
+Al dar de alta un usuario, por defecto, los valores en la base de datos de la fecha de modificación se establece automaticamente y se establece como usuario activo.
+
+---
+```
+./update_representante_by_id/<id del usuario>/
+?nombre:<Nombre del usuario>&
+seg_nombre:<Segundo nombre del usuario>&
+a_paterno:<Apellido paterno del usuario>&
+a_materno:<Apellido materno del usuario>&
+ciudad:<Localización geografica del usuario>&
+user_type:<privilegios del usuario>&
+contrasenia:<contraseña del usuario>&
+activo:<status booleano del usuario>
+```
+
+
+Parametro de la API para actualizar usuarios. 
+
+Es un patch para actualizar los parametros de forma unitaria y opcional
+
+---
+```
+./login/?
+nombre:<Nombre del usuario>&
+contra:<Contraseña hasheada de usuario>
+```
+
+
+Devuelve en caso de ser correcto
+```
+{
+	inicio_sesion: True
+}
+```
+
+Devuelve en caso de ser incorrecto
+```
+{
+	inicio_sesion: False
+}
+```
+
+---
+Nota: No existe el método para borrar, eso debe hacerlo el administrador de la base de datos, para evitar posibles ataques o errores que comprometan la integridad de los datos.
+
+---
+### Interfaz de usuario 
+
+La interfaz visual representa la manipulación y visualización de datos, es enteramente gestionada por el consumo de la API; existe una vista por cada evento posible en la manipulación de la base de datos. Se elige el framework de Vue para consumir la api y mostrar las vistas
+
+#### Rutas 
+
+El mapa de navegación se define en una listración a continuación, mientras se listan las visualizaciones generales y los eventos dentro de cada vista
+
+```
+/login
+	- Formulario de espera de datos
+	- Datos incorrectos
+```
+
+```
+/?usuario=<id_del_usuario>
+	- Representante existe
+	- Rpresentante no existe
+```
+
+```
+/panel_administracion
+	- Usuario tiene permiso de acceso 
+		- Editar usuarios
+	- Usuario no tiene permiso de acceso
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
