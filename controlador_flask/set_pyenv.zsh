@@ -8,7 +8,7 @@ docker run \
  -p ${PORT_SERV}:${PORT_CONT} \
  --name ${PYTHON_NAME} \
  -w ${WORKDIR} \
- -d mongo:${PYTHON_VER}
+ -d python:${PYTHON_VER}
 
 #COPIA TODO EL SCRIPT DEL PROYECTO HACIA EL WORKDIRECTORY
 docker cp \
