@@ -3,18 +3,10 @@
 #ESTABLECE VARIABLES DE ENTORNO
 source .env
 
+#CONSTRUYE EL DOCKERFILE
+docker build . -t ${PYTHON_NAME}
+
 #CREA Y PON EN OPERACION EL CONTROLADOR
 docker run \
  -p ${PORT_SERV}:${PORT_CONT} \
- --name ${PYTHON_NAME} \
- -w ${WORKDIR} \
- -d python:${PYTHON_VER}
-
-#COPIA TODO EL SCRIPT DEL PROYECTO HACIA EL WORKDIRECTORY
-docker cp \
- "./src" \
- ${PYTHON_NAME}:${WORKDIR}
-
-#EJECUTA PIP PARA INSTALAR LOS REQUERIMIENTOS
-docker exec -it ${PYTHON_NAME} \
- pip install -r requirements.txt
+ ${PYTHON_NAME} 

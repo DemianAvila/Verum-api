@@ -6,17 +6,22 @@ from modulos import *
 
 #-----------------------------------------------
 #VARIABLES DE ENTORNO
-vari = var("../../database/.env")
+vari = var("./modulos/.env")
 
 #-----------------------------------------------
 #APP FLASK
 app = Flask(__name__)
+"""
 app.config["MONGO_URI"] = f"mongodb://{vari['PUBLIC_DNS']}:{ vari['PORT_SERV'] }/{vari['DATABASE']}"
 
 mongo = PyMongo(app)
-
+"""
 #------------------------------------------------
 #RUTAS
+@app.route("/")
+def ret():
+    return "Hola mundo"
+#----------------
 @app.route("/post_representante/", methods=["POST"])
 def create_user():
     return {"STATUS":True}
@@ -30,4 +35,4 @@ def create_user():
     contrasenia:<contraseña del usuario>
     """
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
