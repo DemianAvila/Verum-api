@@ -27,8 +27,13 @@ Cada uno de los tres componentes (base de datos, API e interfaz gráfica) serán
 ### Base de datos
 Se trata de un contenedor de docker que emplea MongoDB como motor de base de datos; en el proceso de construcción se copia adentro del contenedor un archivo JavaScript que define la base de datos y agrega una colección de preprsentantes, agregando por default al director de Verum como único administrador
 
+#### Tablas (documentos)
+Usuarios
+Tipos de usuarios
+Sesiones
+
 ### API (Application programming interface) 
-Se trata de un intermediario entre la interfaz visual y la base de datos; define rutas especificas para la consulta, inserción y actualización de datos.Se elige el framework de Flask para alimentarla.
+Se trata de un intermediario entre la interfaz visual y la base de datos; define rutas especificas para la consulta, inserción y actualización de datos. Se elige el framework de Flask para alimentarla.
 
 #### Rutas - Endpoints
 ```
@@ -87,7 +92,8 @@ contra:<Contraseña hasheada de usuario>
 Devuelve en caso de ser correcto
 ```
 {
-	inicio_sesion: True
+	inicio_sesion: True,
+    token: #################
 }
 ```
 
@@ -128,78 +134,5 @@ El mapa de navegación se define en una listración a continuación, mientras se
 		- Editar usuarios
 	- Usuario no tiene permiso de acceso
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
