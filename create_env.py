@@ -17,7 +17,16 @@ INTERNAL_STORAGE=./database/storage
 EXTERNAL_STORAGE=/data/db
 JS_CONFIG=./database/config
 PORT_SERV=27017
-PORT_CONT=27017"""
+PORT_CONT=27017
+#################
+PYTHON_NAME=Verum-controller
+PYTHON_VER=3.10.4-bullseye
+PORT_PY_SERVE=5001
+PORT_PY_CONT=5001
+WORKDIR_PY=/usr/src/app
+INTERNAL_PY_STORAGE=./api/src
+EXTERNAL_PY_STORAGE=/usr/src/app"""
+
 
     open(".env", 'w').write(env_string)
 

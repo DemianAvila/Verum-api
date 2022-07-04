@@ -12,3 +12,12 @@ services:
       - ${JS_CONFIG}:${WORKDIR}
     ports: 
       - ${PORT_SERV}:${PORT_CONT}
+
+  flask_api:
+    build: ./api
+    container_name: ${PYTHON_NAME}
+    volumes:
+      - ${INTERNAL_PY_STORAGE}:${EXTERNAL_PY_STORAGE}
+    ports: 
+      - ${PORT_PY_SERVE}:${PORT_PY_CONT}
+

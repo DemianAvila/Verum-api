@@ -22,7 +22,8 @@ mongo = PyMongo(app)
 def ret():
     return "Hola mundo"
 #----------------
-@app.route("/post_representante/", methods=["POST"])
+#@app.route("/post_representante/", methods=["POST"])
+@app.route("/post_representante")
 def create_user():
     return {"STATUS":True}
     """
@@ -35,4 +36,4 @@ def create_user():
     contrasenia:<contraseña del usuario>
     """
 if __name__=="__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5001)
