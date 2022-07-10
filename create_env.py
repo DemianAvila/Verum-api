@@ -25,7 +25,15 @@ PORT_PY_SERVE=5001
 PORT_PY_CONT=5001
 WORKDIR_PY=/usr/src/app
 INTERNAL_PY_STORAGE=./api/src
-EXTERNAL_PY_STORAGE=/usr/src/app"""
+EXTERNAL_PY_STORAGE=/usr/src/app
+#################
+NGINX_VER=stable-perl
+NGINX_NAME=verum_reverse_proxy
+INTERNAL_NGINX_STORAGE=./rev_proxy/nginx.conf
+EXTERNAL_NGINX_STORAGE=/etc/nginx/nginx.conf
+PORT_NGINX_SERVE=80
+PORT_NGINX_CONT=80"""
+
 
 
     open(".env", 'w').write(env_string)

@@ -1,5 +1,6 @@
 version: "3.9"
 services: 
+
   mongo_database:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
@@ -13,6 +14,7 @@ services:
     ports: 
       - ${PORT_SERV}:${PORT_CONT}
 
+
   flask_api:
     build: ./api
     container_name: ${PYTHON_NAME}
@@ -20,4 +22,16 @@ services:
       - ${INTERNAL_PY_STORAGE}:${EXTERNAL_PY_STORAGE}
     ports: 
       - ${PORT_PY_SERVE}:${PORT_PY_CONT}
+
+
+  nginx_proxi:
+    image: nginx:${NGINX_VER}
+    container_name: ${NGINX_NAME}
+    depends_on:
+      - mongo_database
+      - flask_api
+    volumes:
+      - ${INTERNAL_NGINX_STORAGE}:${EXTERNAL_NGINX_STORAGE}
+    ports:
+      - ${PORT_NGINX_SERVE}:${PORT_NGINX_CONT}
 
