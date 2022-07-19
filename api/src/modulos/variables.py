@@ -1,8 +1,39 @@
-import os
-from dotenv import load_dotenv
+import json
+#from dotenv import load_dotenv
 
 
 def var(ruta):
+    lines = open(ruta, 'r').readlines()
+    lines = list(
+        map(
+            lambda x: x.strip(),
+            lines
+        )
+    )
+    lines = list(
+        filter(
+            lambda x: not x.startswith('#'),
+            lines
+        )
+    )
+    lines = list(
+        map(
+            lambda x: x.split("="), 
+            lines
+        )
+    )
+    
+    variables = {}
+    for line in lines:
+        try:
+            variables[line[0].strip()] = line[1].strip()
+        except:
+            pass
+
+    return variables
+
+
+    """
     load_dotenv(ruta)
     variables = {}
     variables["MONGOD_VER"] = os.getenv("MONGOD_VER")
@@ -17,4 +48,5 @@ def var(ruta):
     variables["EXTERNAL_STORAGE"] = os.getenv("EXTERNAL_STORAGE")
     variables["PUBLIC_DNS"] = os.getenv("PUBLIC_DNS")
     return variables
+    """
 

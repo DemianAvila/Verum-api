@@ -59,21 +59,21 @@ db.createRole(
 db.createUser (
     {
         user: "lecturas",
-        pwd: "d2UsuPRILO4n7KasPrAagESILYLZhP0J8WzWi46kUbg=",
+        pwd: "d2UsuPRILO4n7KasPrAagESILYLZhP0J8WzWi46kUbg",
         roles: ["lectura"] 
     }
 );
 db.createUser (
     {
         user: "escrituras",
-        pwd: "n2yYhKlvVrk4qNkvDn0MOBR1VZ8EoTzSfKrp0JlNzV0=",
+        pwd: "n2yYhKlvVrk4qNkvDn0MOBR1VZ8EoTzSfKrp0JlNzV0",
         roles: ["escritura"]
     }
 );
 db.createUser (
     {
         user: "actualizaciones",
-        pwd: "tyyKhzHcff2zQwUuM+i+mS0OVvnRbXB7cO6oa4byKEA=",
+        pwd: "tyyKhzHcff2zQwUuMimS0OVvnRbXB7cO6oa4byKEA",
         roles: ["actualizacion"]
     }
 );

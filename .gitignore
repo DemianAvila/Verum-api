@@ -1,2 +1,3 @@
 database/storage/**
 **/.env
+**/certs

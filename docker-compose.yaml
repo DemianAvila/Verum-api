@@ -3,14 +3,15 @@ services:
 
   mongo_database:
     environment:
+      MONGO_INITDB_DATABASE: admin
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
     image: mongo:${MONGO_VER}
     container_name: ${MONGO_NAME}
     working_dir: ${WORKDIR}
     volumes:
+      - ${JS_CONFIG}/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
       - ${INTERNAL_STORAGE}:${EXTERNAL_STORAGE}
-      - ${JS_CONFIG}:${WORKDIR}
     ports: 
       - ${PORT_SERV}:${PORT_CONT}
 
@@ -32,6 +33,7 @@ services:
       - flask_api
     volumes:
       - ${INTERNAL_NGINX_STORAGE}:${EXTERNAL_NGINX_STORAGE}
+      - ${INTERNAL_CERTS_STORAGE}:${EXTERNAL_CERTS_STORAGE}
     ports:
       - ${PORT_NGINX_SERVE}:${PORT_NGINX_CONT}
-
+      - ${PORT_TCP_INT}:${PORT_TCP_EXT} 

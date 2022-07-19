@@ -32,11 +32,17 @@ NGINX_NAME=verum_reverse_proxy
 INTERNAL_NGINX_STORAGE=./rev_proxy/nginx.conf
 EXTERNAL_NGINX_STORAGE=/etc/nginx/nginx.conf
 PORT_NGINX_SERVE=80
-PORT_NGINX_CONT=80"""
+PORT_NGINX_CONT=80
+INTERNAL_CERTS_STORAGE=./rev_proxy/certs
+EXTERNAL_CERTS_STORAGE=/app
+PORT_TCP_EXT=81
+PORT_TCP_INT=81"""
 
 
-
+    #WRITE IN ROOT DIRECTORY
     open(".env", 'w').write(env_string)
+    #WRITE IN API DIRECTORY
+    open("./api/src/modulos/.env", 'w').write(env_string)
 
 if __name__ == '__main__':
     main()
