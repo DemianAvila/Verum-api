@@ -12,8 +12,6 @@ services:
     volumes:
       - ${JS_CONFIG}/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
       - ${INTERNAL_STORAGE}:${EXTERNAL_STORAGE}
-    ports: 
-      - ${PORT_SERV}:${PORT_CONT}
 
 
   flask_api:
@@ -21,8 +19,6 @@ services:
     container_name: ${PYTHON_NAME}
     volumes:
       - ${INTERNAL_PY_STORAGE}:${EXTERNAL_PY_STORAGE}
-    ports: 
-      - ${PORT_PY_SERVE}:${PORT_PY_CONT}
 
 
   nginx_proxi:

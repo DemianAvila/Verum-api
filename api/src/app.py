@@ -21,7 +21,7 @@ app.config["MONGO_URI"] = f"mongodb://lecturas:d2UsuPRILO4n7KasPrAagESILYLZhP0J8
 mongo = PyMongo(app)
 #------------------------------------------------
 #RUTAS
-@app.route("/")
+@app.route("/verum_backend")
 def ret():
     return "Hola mundo"
 #----------------
