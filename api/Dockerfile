@@ -9,13 +9,15 @@ EXPOSE 5001/tcp
 WORKDIR /usr/src/app
 
 #COPIA EL REQUIREMENTS TXT
-COPY ./src/requirements.txt ./                                                                                                 
+#COPY ./src/requirements.txt ./                                                                                                 
 
 #INSTALA LOS REQUIREMENTS
-RUN pip install --no-cache-dir -r requirements.txt
-
+RUN ["pip", "install", "--no-cache-dir", "--upgrade", "-r", "requirements.txt"]
+#RUN ["pip", "install", "--no-cache-dir", "fastapi", "uvicorn", "pydantic", "pymongo", "python-dotenv"]
+#RUN ["echo", "Hola"]
 
 #COPIA LA CARPETA SRC
 COPY src /usr/src/app
 
-CMD [ "python", "app.py" ]
+#CMD [ "python", "app.py" ]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0","--port", "5001", "--reload"]

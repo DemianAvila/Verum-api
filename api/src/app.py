@@ -1,3 +1,15 @@
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/verum_backend")
+async def root():
+    return {
+        "mensaje": "Hola"
+    }
+
+
+"""
 #-----------------------------------------------
 #IMPORTACION MODULOS
 from flask import Flask
@@ -7,6 +19,7 @@ from flask import json
 import logging
 
 _logger = logging.getLogger(__name__)
+
 
 
 #-----------------------------------------------
@@ -31,8 +44,8 @@ def create_user():
     return {
         "STATUS":True,
         "app_database": str(app.config["MONGO_URI"])
-    }
-    """
+    }"""
+"""
     ?nombre:<Nombre del usuario>&
     seg_nombre:<Segundo nombre del usuario>&
     a_paterno:<Apellido paterno del usuario>&
@@ -40,7 +53,8 @@ def create_user():
     ciudad:<Localización geografica del usuario>&
     user_type:<privilegios del usuario>&
     contrasenia:<contraseña del usuario>
-    """
+"""
+"""
 #--------------------------------------------------
 @app.route("/get_usuarios")
 def get_usuarios():
@@ -103,3 +117,4 @@ def get_usuarios():
 #--------------------------------------------------
 if __name__=="__main__":
     app.run(debug=True, host='0.0.0.0', port=5001)
+"""
