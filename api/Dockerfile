@@ -12,8 +12,8 @@ WORKDIR /usr/src/app
 #COPY ./src/requirements.txt ./                                                                                                 
 
 #INSTALA LOS REQUIREMENTS
-RUN ["pip", "install", "--no-cache-dir", "--upgrade", "-r", "requirements.txt"]
-#RUN ["pip", "install", "--no-cache-dir", "fastapi", "uvicorn", "pydantic", "pymongo", "python-dotenv"]
+#RUN ["pip", "install", "--no-cache-dir", "-r", "requirements.txt"]
+RUN ["pip", "install", "--no-cache-dir", "fastapi", "uvicorn", "pydantic", "pymongo", "python-dotenv"]
 #RUN ["echo", "Hola"]
 
 #COPIA LA CARPETA SRC

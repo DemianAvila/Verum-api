@@ -1,7 +1,7 @@
 //CREA LA BASE DE DATOS DE VERUM
-db = db.getSiblingDB("verum_administracion");
+db = db.getSiblingDB("verum_administration");
 //INSERTA UN DATO PARA HACER EXISTIR ESA BASE DE DATOS
-db.representantes.insert({
+db.usuarios.insert({
     nombre: "Luis",
     seg_nombre: "Wenceslao",
     a_paterno: "De Ignacio",
@@ -20,21 +20,21 @@ db.createRole(
       privileges: [
         {
           actions: [ "find" ],
-          resource: { db: "verum_administracion",
+          resource: { db: "verum_administration",
           collection: ""}
         }
       ],
       roles: []
     }
 )
- //CREA DENTRO DE ESA BASE DE DATOS UN ROL DE ESCRITURA
+//CREA DENTRO DE ESA BASE DE DATOS UN ROL DE ESCRITURA
 db.createRole(
     {
       role: "escritura", 
       privileges: [
         {
           actions: [ "insert" ],
-          resource: { db: "verum_administracion",
+          resource: { db: "verum_administration",
           collection: ""}
         }
       ],
@@ -48,7 +48,7 @@ db.createRole(
       privileges: [
         {
           actions: [ "update" ],
-          resource: { db: "verum_administracion",
+          resource: { db: "verum_administration",
           collection: ""}
         }
       ],
@@ -59,21 +59,22 @@ db.createRole(
 db.createUser (
     {
         user: "lecturas",
-        pwd: "d2UsuPRILO4n7KasPrAagESILYLZhP0J8WzWi46kUbg",
+        pwd: "szxpxjcxhz",
         roles: ["lectura"] 
     }
 );
 db.createUser (
     {
         user: "escrituras",
-        pwd: "n2yYhKlvVrk4qNkvDn0MOBR1VZ8EoTzSfKrp0JlNzV0",
+        pwd: "fatmxbjora",
         roles: ["escritura"]
     }
 );
 db.createUser (
     {
         user: "actualizaciones",
-        pwd: "tyyKhzHcff2zQwUuMimS0OVvnRbXB7cO6oa4byKEA",
+        pwd: "hqvkwqehwa",
         roles: ["actualizacion"]
     }
 );
+    

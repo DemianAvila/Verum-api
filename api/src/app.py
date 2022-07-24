@@ -1,120 +1,112 @@
 from fastapi import FastAPI
-
-app = FastAPI()
-
-@app.get("/verum_backend")
-async def root():
-    return {
-        "mensaje": "Hola"
-    }
-
-
-"""
-#-----------------------------------------------
-#IMPORTACION MODULOS
-from flask import Flask
-from flask_pymongo import PyMongo
 from modulos import *
-from flask import json
-import logging
+from pymongo import MongoClient
+from pydantic import BaseModel, Extra
+from typing import Optional, List
+from hashlib import sha512
+from datetime import datetime
+from base64 import b64encode
 
-_logger = logging.getLogger(__name__)
-
-
-
-#-----------------------------------------------
 #VARIABLES DE ENTORNO
 vari = var("./modulos/.env")
 
-#-----------------------------------------------
-#APP FLASK
-app = Flask(__name__)
-#app.config["MONGO_URI"] = f"mongodb://{vari['MONGO_USER']}:{vari['MONGO_PASS']}@172.18.0.2:{ vari['PORT_CONT'] }/{ vari['DATABASE'] }?authSource=admin"
-app.config["MONGO_URI"] = f"mongodb://lecturas:d2UsuPRILO4n7KasPrAagESILYLZhP0J8WzWi46kUbg=@172.18.0.2:{ vari['PORT_CONT'] }/{ vari['DATABASE'] }?authSource=admin"
-mongo = PyMongo(app)
-#------------------------------------------------
-#RUTAS
-@app.route("/verum_backend")
-def ret():
-    return "Hola mundo"
-#----------------
-#@app.route("/post_representante/", methods=["POST"])
-@app.route("/post_representante")
-def create_user():
-    return {
-        "STATUS":True,
-        "app_database": str(app.config["MONGO_URI"])
-    }"""
-"""
-    ?nombre:<Nombre del usuario>&
-    seg_nombre:<Segundo nombre del usuario>&
-    a_paterno:<Apellido paterno del usuario>&
-    a_materno:<Apellido materno del usuario>&
-    ciudad:<Localización geografica del usuario>&
-    user_type:<privilegios del usuario>&
-    contrasenia:<contraseña del usuario>
-"""
-"""
-#--------------------------------------------------
-@app.route("/get_usuarios")
-def get_usuarios():
-    try:
-        usuarios = mongo.db.representantes.find()
-        print(mongo.db.list_collection_names(), flush=True)
-    except Exception as error:
-        print(str(error), flush = True)
-        return app.response_class(
-            response = json.dumps({
-                'descripcion': "No se puede acceder a la base de datos en este momento"
-                }
-            ),
-            status = 400,
-            mimetype='application/json'
-        )
-            
-    retorno_usuarios = []
-    for usuario in usuarios:
-        print("--------------------------------", flush=True)
-        print(usuario, flush = True)
-        print("--------------------------------", flush=True)
-        nombre = [{usuario['nombre']},
-            {usuario['seg_nombre']},
-            {usuario['a_paterno']},
-            {usuario['a_materno']}
-        ]
+#INSTANCIA FAST API
+app = FastAPI()
 
-        nombre = list(
-            map(
-                lambda x: x.strip(),
-                nombre
-            )
-        )
+#MODELOS
+class User(BaseModel, extra=Extra.forbid):
+    id_usuario: Optional[str] = ""
+    nombre: Optional[str] = ""
+    s_nombre: Optional[str] = ""
+    apellido_p: Optional[str] = ""
+    apellido_m: Optional[str] = ""
+    ciudad: Optional[str] = ""
+    activo: Optional[bool] = True
+    categoria_usuario: Optional[int] = 0
+    fecha_modificacion: Optional[str] = ""
+    contrasenia: Optional[str] = ""
+    sha_code: Optional[str] = ""
 
-        nombre = list(
-            filter(
-                lambda x: x!='',
-                nombre
-            )
-        )
+class UserList(BaseModel, extra=Extra.forbid):
+    users: Optional[List['User']] = []
 
-        nombre = ' '.join(nombre)
 
-        retorno_usuarios.append(
-            {
-                'nombre': nombre
-            }
-        )
 
-    return app.response_class(
-        response = json.dumps(
-            {
-                'usuarios': retorno_usuarios,
-            }
-        ),
-        status = 200,
-        mimetype='application/json'
+#INSTANCIAS DE CONEXION MONGO (DETRAS DEL PROXY)
+lectura = mongo_client(
+        client_object = MongoClient,
+        user = vari['MONGO_USER'],
+        passwd = vari['MONGO_PASS'],
+        port = vari['PORT_TCP_INT'],
+        host = "nginx_proxi",
+        database = vari['DATABASE']
     )
-#--------------------------------------------------
-if __name__=="__main__":
-    app.run(debug=True, host='0.0.0.0', port=5001)
-"""
+
+lect_db = lectura[vari['DATABASE']]
+lect_usr_coll = lect_db['usuarios']
+
+
+
+@app.get("/verum_backend/get_users")
+async def get_users():
+    users = []
+    for user in lect_usr_coll.find():
+        print(user.get("_id"))
+        users.append(
+            User(
+                id_usuario= str(user.get("_id")),
+                nombre = user['nombre'],
+                s_nombre = user['seg_nombre'],
+                apellido_p = user['a_paterno'],
+                apellido_m = user['a_materno'],
+                ciudad = user['ciudad'],
+                activo = user['activo'],
+                categoria_usuario = user['user_type'],
+                fecha_modificacion = str(user['fecha_modificacion']),
+                contrasenia = user['contrasenia'],
+                sha_code = user['sha_code']
+            )
+        )
+
+    return {
+        "users": UserList(
+            users = users
+        )
+    }
+
+@app.post("/verum_backend/post_user")
+async def post_user(user: User):
+    #NOW DATETIME
+    now = datetime.now()
+    #THE SHA CODE OF EACH USER
+    sha_code = user.nombre + user.s_nombre + user.apellido_p + user.apellido_m + \
+        user.ciudad + str(user.activo) + str(user.categoria_usuario) + str(now)
+    #POST THE RESULT AND GET THE ID
+    new_user = {
+            "nombre": user.nombre,
+            "seg_nombre": user.s_nombre,
+            "a_paterno": user.apellido_p,
+            "a_materno": user.apellido_m,
+            "ciudad": user.ciudad,
+            "activo": user.activo,
+            "user_type": user.categoria_usuario,
+            "fecha_modificacion": now,
+            "contrasenia": sha512(b"{user.contrasenia}").hexdigest(),
+        }
+    new_user_id = lect_usr_coll.insert_one(new_user).inserted_id
+    sha_code = sha512(b"{str(new_user_id) + sha_code}").digest()
+    sha_code = b64encode(sha_code).decode()
+    #UPDATE THE RECORD WITH SHA CODE
+    lect_usr_coll.update_one(
+        {
+            "_id": new_user_id
+        },
+        {
+            "$set":{
+                "sha_code": sha_code
+            }
+        }
+    )
+
+
+    return None
