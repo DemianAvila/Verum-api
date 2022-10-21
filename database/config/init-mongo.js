@@ -1,5 +1,17 @@
 //CREA LA BASE DE DATOS DE VERUM
 db = db.getSiblingDB("verum_administration");
+
+//CREAR COLECCION DE CORREOS
+
+db.correos.insert({
+    _id: "0",
+    correo: "luisvenzel@gmail.com"
+})
+db.correos.insert({
+    _id: "1",
+    correo: "direcciongeneral@verumexico.com"
+})
+
 //INSERTA UN DATO PARA HACER EXISTIR ESA BASE DE DATOS
 db.usuarios.insert({
     nombre: "Luis",
@@ -10,6 +22,8 @@ db.usuarios.insert({
     activo: true,
     user_type: 1,
     fecha_modificacion: Date(),
+    fecha_creacion: Date(),
+    correos: ["0", "1"],
     contrasenia: null,
     sha_code:null
 });
@@ -59,21 +73,21 @@ db.createRole(
 db.createUser (
     {
         user: "lecturas",
-        pwd: "szxpxjcxhz",
+        pwd: "ofkvaszopi",
         roles: ["lectura"] 
     }
 );
 db.createUser (
     {
         user: "escrituras",
-        pwd: "fatmxbjora",
+        pwd: "tvsouslklw",
         roles: ["escritura"]
     }
 );
 db.createUser (
     {
         user: "actualizaciones",
-        pwd: "hqvkwqehwa",
+        pwd: "snnqaygwcy",
         roles: ["actualizacion"]
     }
 );

@@ -56,6 +56,18 @@ DB_UPDATE_PASS={mongo_update_pass}"""
     
     db_init=f"""//CREA LA BASE DE DATOS DE VERUM
 db = db.getSiblingDB("{verum_database}");
+
+//CREAR COLECCION DE CORREOS
+
+db.correos.insert({{
+    _id: "0",
+    correo: "luisvenzel@gmail.com"
+}})
+db.correos.insert({{
+    _id: "1",
+    correo: "direcciongeneral@verumexico.com"
+}})
+
 //INSERTA UN DATO PARA HACER EXISTIR ESA BASE DE DATOS
 db.usuarios.insert({{
     nombre: "Luis",
@@ -66,6 +78,8 @@ db.usuarios.insert({{
     activo: true,
     user_type: 1,
     fecha_modificacion: Date(),
+    fecha_creacion: Date(),
+    correos: ["0", "1"],
     contrasenia: null,
     sha_code:null
 }});

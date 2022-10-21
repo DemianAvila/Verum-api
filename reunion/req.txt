@@ -1,0 +1,13 @@
+a la hota de vaciar información, en los reportes se debe poder ver una previdualización del documento
+
+despues de que el analista termina el informa, se debe notificar al director general y a control de calidad
+
+- se puede regresar el informe con observaciones
+- se puede enviar como previo al cliente o como finalizado
+        -status del documento
+            - en proceso
+            - regresado para revision
+            - previo
+            - finalizado
+
+- dar de alta la empresa
