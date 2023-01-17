@@ -15,18 +15,24 @@
       </div>
     </div>
     <div v-if="this.$store.state.report_form.format == 'persona_fisica'">
-      <button v-if="form_counter > 0" @click="form_counter -= 1">↑</button>
-      <DomicilioFiscal v-if="form_counter == 0"></DomicilioFiscal>
-      <EstructurA v-else-if="form_counter == 1"></EstructurA>
-      <DatosGenerales v-else-if="form_counter == 2"></DatosGenerales>
-      <AntecedenteS v-else-if="form_counter == 3"></AntecedenteS>
-      <RegistrosOficiales v-else-if="form_counter == 4"></RegistrosOficiales>
-      <ActividadesOperaciones v-else-if="form_counter == 5"></ActividadesOperaciones>
-      <InfraestructurA v-else-if="form_counter == 6"></InfraestructurA>
-      <ReferenciasComerciales v-else-if="form_counter == 7"></ReferenciasComerciales>
-      <InformacionFinanciera v-else-if="form_counter == 8"></InformacionFinanciera>
-      <button v-if="form_counter < 9" @click="form_counter += 1">↓</button>
-      <button @click="print_obj()">Guardar</button>
+      <button v-if="$store.state.form_counter.selector > 0" @click="change('-')">
+        <i class="fa-solid fa-square-caret-left"></i>
+      </button>
+      <DomicilioFiscal v-if="$store.state.form_counter.selector == 0"></DomicilioFiscal>
+      <EstructurA v-else-if="$store.state.form_counter.selector == 1"></EstructurA>
+      <DatosGenerales v-else-if="$store.state.form_counter.selector == 2"></DatosGenerales>
+      <AntecedenteS v-else-if="$store.state.form_counter.selector == 3"></AntecedenteS>
+      <RegistrosOficiales v-else-if="$store.state.form_counter.selector == 4"></RegistrosOficiales>
+      <ActividadesOperaciones v-else-if="$store.state.form_counter.selector == 5"></ActividadesOperaciones>
+      <InfraestructurA v-else-if="$store.state.form_counter.selector == 6"></InfraestructurA>
+      <ReferenciasComerciales v-else-if="$store.state.form_counter.selector == 7"></ReferenciasComerciales>
+      <InformacionFinanciera v-else-if="$store.state.form_counter.selector == 8"></InformacionFinanciera>
+      <button v-if="$store.state.form_counter.selector < 8" @click="change('+')">
+        <i class="fa-solid fa-square-caret-right"></i>
+      </button>
+      <button @click="print_obj()">
+        Guardar
+      </button>
     </div>
   </div>
 </template>
@@ -39,10 +45,10 @@ import AntecedenteS from "@/components/FormularioReporte/AntecedenteS.vue";
 import RegistrosOficiales from "@/components/FormularioReporte/RegistrosOficiales.vue";
 import ActividadesOperaciones from "@/components/FormularioReporte/ActividadesOperaciones.vue";
 import InfraestructurA from "@/components/FormularioReporte/InfraestructurA.vue";
-
-import { jsPDF } from "jspdf";
 import ReferenciasComerciales from "@/components/FormularioReporte/ReferenciasComerciales.vue";
 import InformacionFinanciera from "@/components/FormularioReporte/InformacionFinanciera.vue";
+import { jsPDF } from "jspdf";
+
 
 export default {
   name: "HomeView",
@@ -62,10 +68,17 @@ export default {
       num_telefono: [""],
       sociedad_privada: false,
       nacimiento: "",
-      form_counter: 0,
     };
   },
   methods: {
+    change: function(sign){
+      if (sign=="+"){
+        this.$store.state.form_counter.selector += 1;
+      }
+      else if (sign=="-"){
+        this.$store.state.form_counter.selector -= 1;
+      }
+    },
     edad: function () {
       let cumple = new Date(this.nacimiento);
       let diferencia = Date.now() - cumple;

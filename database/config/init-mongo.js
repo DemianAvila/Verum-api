@@ -17,8 +17,8 @@ db.usuarios.insert({
     nombre: "Luis",
     seg_nombre: "Wenceslao",
     a_paterno: "De Ignacio",
-    a_materno: "Hern√°ndez",
-    ciudad: "Ecatepec, Estado de M√©xico",
+    a_materno: "Hern·ndez",
+    ciudad: "Ecatepec, Estado de MÈxico",
     activo: true,
     user_type: 1,
     fecha_modificacion: Date(),
@@ -73,21 +73,21 @@ db.createRole(
 db.createUser (
     {
         user: "lecturas",
-        pwd: "ofkvaszopi",
+        pwd: "hrdcidklww",
         roles: ["lectura"] 
     }
 );
 db.createUser (
     {
         user: "escrituras",
-        pwd: "tvsouslklw",
+        pwd: "jnuqyfoikf",
         roles: ["escritura"]
     }
 );
 db.createUser (
     {
         user: "actualizaciones",
-        pwd: "snnqaygwcy",
+        pwd: "tahghdxbfi",
         roles: ["actualizacion"]
     }
 );
