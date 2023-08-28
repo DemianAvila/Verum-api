@@ -1,0 +1,10 @@
+FROM golang:1.21.0-alpine3.18
+WORKDIR /app
+COPY ./backend/ .
+COPY .env ./db_connection/
+RUN go build main.go
+
+FROM alpine:3.18.3
+WORKDIR /app
+COPY --from=0 /app/main /app/ 
+CMD ./main
