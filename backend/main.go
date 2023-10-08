@@ -1,16 +1,21 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"verum.com/api/endpoints"
 	"verum.com/api/db_connection"
+	"verum.com/api/logger"
 )                 
 
 
 
 func main(){
+	//START THE LOGGEER FILE
+	logger.LoggerInit();
 
-	db_connection.CheckConnCredentials();
+	db_client := db_connection.GetMongoClient();
+	fmt.Println(db_client)
 
 	auth.Login()
 

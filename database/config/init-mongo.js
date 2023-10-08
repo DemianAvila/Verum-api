@@ -28,10 +28,10 @@ db.users.insert({
     city: "Ecatepec, Estado de México",
     active: true,
     user_type: 1,
-    fecha_modificacion: Date(),
-    fecha_creacion: Date(),
-    correos: ["0", "1"],
-    contrasenia: null,
+    update_date: Date(),
+    creation_date: Date(),
+    mails: ["0", "1"],
+    pass: null,
     sha_code:null,
     enterprice: 1,
     user_owner: 1,
@@ -66,7 +66,8 @@ db.user_types.insertMany([
 db.models.insertMany([
   {
     _id: 1,
-    name: "users"
+    name: "users",
+    access_menu: "Users"
   },
   {
     _id: 2,
@@ -78,11 +79,21 @@ db.models.insertMany([
   },
   {
     _id: 4,
-    name: "enterprices"
+    name: "enterprices",
+    access_menu: "Enterprices"
   },
   {
     _id: 5,
-    name: "reports"
+    name: "reports",
+    access_menu: "Reports",
+    sub_menus: [
+      {
+        name: "Create report"
+      },
+      {
+        name: "Upload report"
+      }
+    ]
   },
   {
     _id: 6,
